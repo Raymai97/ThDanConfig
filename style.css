@@ -1,0 +1,97 @@
+body {
+	background-color: #000000;
+	color: #F230A2;
+	font-size: 18px;
+	font-family: "Tahoma", sans-serif;
+	overflow-y: scroll;
+	text-align: center;
+}
+
+*, :before, :after {
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+}
+
+div#body {
+	position: absolute;
+	left: 0; right: 0;
+	margin: auto;
+	width: 1000px;
+}
+
+div#title {
+	color: #C00CC0;
+	font-size: 60px;
+}
+
+div#title span {
+	color: #B00BB0;
+	font-family: "MS PGothic", sans-serif;
+	font-size: 24px;
+	font-style: oblique;
+}
+
+div#img {
+	position: relative;
+	left: 0; right: 0;
+	margin: auto;
+	
+	width: 900px;
+	height: 520px;
+	
+	cursor: pointer;
+}
+div#img_1,
+div#img_2,
+div#img_3 {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	transition: opacity 1s;
+	opacity: 0; /*visibility: hidden;*/
+}
+
+div#img_1 {
+	background-image: url('./1.png');
+	opacity: 1; /*visibility: visible;*/
+}
+div#img_2 {
+	background-image: url('./2.png');
+}
+div#img_3 {
+	background-image: url('./3.png');
+}
+
+div.btn {
+	position: relative;
+	left: 0; right: 0;
+	margin: 10px auto;
+	
+	width: 250px;
+	height: 40px;
+	line-height: 40px;
+	
+	border: 2px solid #800860;
+}
+div.btn:hover,
+div.btn:active {
+	background-color: #200220;
+}
+
+div.btn a:link,
+div.btn a:hover,
+div.btn a:active,
+div.btn a:visited {
+	/* Make entire div a hyperlink */
+	display: block;
+	width: 100%;
+	height: 100%;
+	
+	color: #F230A2;
+	text-decoration: none;
+}
+div.btn a:hover {
+	color: #FF80C0;
+}
+
