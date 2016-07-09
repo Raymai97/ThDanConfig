@@ -1,0 +1,40 @@
+th095 config note
+
+File size must be 200 bytes.
+Totally 177 dummy bytes.
+
+----- 1P
+0x00 - joypad FOCUS (SHIFT/X key)
+0x01 - must be 00
+0x02 - joypad PHOTO (Z key)
+0x03 - must be 00
+0x04 - dummy
+0x05 - dummy
+0x06 - joypad CANCEL (ESC key)
+0x07 - must be 00
+0x08 to 0x36 - dummy
+----- 2P (ignored)
+0x37 to 0x6B - assumed dummy as ignored
+
+0x6C to 0xA3 - dummy
+
+0xA4 - must be 01
+0xA5 - must be 0x50
+0xA6 - must be 09
+0xA7 - must be 00
+0xA8, 0xA9 - Joypad sen X
+0xAA, 0xAB - Joypad sen Y
+eg. C8 00 = 200, C8 01 = 456
+
+0xAC - Color mode (32/16 bit)
+0xAD - BGM off/on
+0xAE - SE off/on
+0xAF - Resolution & Fullscreen
+0xB0 - Rendering rate
+0xB1 - Effect low/med/high (obsolete)
+0xB2 to 0xB4 - dummy
+0xB5 - BGM vol (max 7F (127%)?)
+0xB6 - SE vol
+0xB7 to 0xC3 - dummy
+0xC4 - refer OLDFLAGS3
+0xC5 to 0xC7 - dummy

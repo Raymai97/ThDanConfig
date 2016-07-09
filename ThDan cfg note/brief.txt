@@ -1,0 +1,23 @@
+Player (1-5)	TH06~07
+Player (1-7)	TH08
+Player (3-5)	TH09
+
+BGM		TH06~TH09
+SlowMode	TH07~TH08
+BGM volume	TH08 ++
+SE volume	TH08 ++
+
+TH06  東方紅魔郷 EoSD
+TH07  東方妖々夢 PCB
+TH08  東方永夜抄 IN
+TH09  東方花映塚 PoFV
+TH095 東方文化帖 StB
+TH10  東方風神録 MoF
+TH11  東方地霊殿 SA
+TH12  東方星蓮船 UFO
+TH125 ダブルスポイラー DS
+TH128 妖精大戦争 GFW
+TH13  東方神霊廟 TD
+TH14  東方輝針城 DDC
+TH143 弾幕天邪鬼 IS
+TH15  東方紺珠伝 LoLK

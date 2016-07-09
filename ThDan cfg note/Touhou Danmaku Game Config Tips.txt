@@ -1,0 +1,49 @@
+Touhou Danmaku Game Config Tips
+
+1. Display
+
+Touhou 6 to 10 support 640x480 resolution only.
+
+Touhou 11 to 13 support 960x720 and 1280x960 in windowed mode only.
+They're not really HD; they just simply scale to higher resolution.
+
+Touhou 14 and later games has real HD textures, supporting HD resolution in fullscreen mode as well.
+
+Any game prior to Touhou 10 doesn't support "Ask at startup" option.
+
+2. Rendering rate
+
+Always try 60FPS first, really. You will miss out the smooth experience of Touhou gaming if you don't do so.
+
+If you can't get 60FPS and experience slowdown in game, then try to mess with Input Latency first.
+
+If your PC is really too slow, then try 30FPS or 20FPS.
+For me, 20FPS is unacceptable as the game control will be very sluggish, nightmare for danmaku dodging.
+
+3. Input Latency
+
+If you have frame-dropping or input response problem, changing this might help.
+As for me, choosing 'Fast' has solved most of the frame-dropping problem.
+
+'Stable' and 'Normal' give same response as previous Touhou games.
+ZUN says these options cause lower CPU usage, and try 'Stable' if 'Normal' doesn't work well.
+'Automatic' will try to provide the fastest response.
+'Fast' will provide the fastest response but might cause graphic glitches.
+
+ZUN says this option is only vaild for 60FPS rendering rate.
+
+4. Color mode
+
+Just choose 32-bit. Touhou games look worse than crap in 16-bit color mode.
+Windows doesn't support 16-bit color video mode since Windows 8, too.
+
+5. Joypad sensitivity
+
+Not sensitive enough? Decrease this.
+Too sensitive? Increase this.
+
+I don't have a joypad anyway. /.\
+
+6. Misc (Before Touhou 10)
+
+Don't mess with this unless you have idea what it is.

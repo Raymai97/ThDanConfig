@@ -1,0 +1,56 @@
+th11, th12, th125 and th128 config note
+
+File size must be 60 bytes.
+Totally 22 dummy bytes.
+
+0x00 - must be 01 (03 for th11)
+0x01 - must be 00 (05 for th125, 0x80 for th128)
+0x02 - must be 0x12 (0x11 for th11)
+0x03 - must be 00
+0x04 - joypad SHOT
+0x05 - must be 00
+0x06 - joypad BOMB
+0x07 - must be 00
+
+===== for th11 to th125
+0x08 - joypad SLOW (Focus)
+0x09 - must be 00
+0x0A - joypad PAUSE
+0x0B - must be 00
+0x0C to 0x13 - dummy
+0x14 - joypad of keyboard's button C (dummy for th125)
+0x15 - must be 00 (dummy for th125)
+
+===== for th128
+0x08 - joypad of keyboard's button C
+0x09 - must be 00
+0x0A - joypad SLOW (Focus)
+0x0B - must be 00
+0x0C - joypad PAUSE
+0x0D - must be 00
+0x0E to 0x15 - dummy
+
+===============
+0x16, 0x17 - Joypad sen X
+0x18, 0x19 - Joypad sen Y
+eg. C8 00 = 200, C8 01 = 456
+
+0x1A - Color mode (32/16 bit)
+0x1B - BGM off/on
+0x1C - SE off/on
+0x1D - Resolution & Fullscreen
+0x1E - Rendering rate
+0x1F - Effect low/med/high (obsolete)
+0x20 - BGM vol (max 7F (127%)?)
+0x21 - SE vol
+0x22 - Reset to 0 every time RESET default in game (?)
+0x23 - Latency mode
+0x24 to 0x27 - dummy
+0x28, 0x29, 0X2A, 0X2B - Window pos X
+0X2C, 0X2D, 0X2E, 0X2F - Window pos Y
+eg. FD FF FF FF = -3
+
+0x30 to 0x37 - dummy
+0x38 - No DirectInput (+8)
+0x39 - Ask at startup (+1) & Focus while SHOT (+2)
+0x3A to 0x5C - dummy

@@ -1,0 +1,41 @@
+th07 config note
+
+File size must be 56 bytes.
+Totally 25 dummy bytes.
+
+0x00 - joypad SHOT
+0x01 - must be 00
+0x02 - joypad BOMB
+0x03 - must be 00
+0x04 - joypad SLOW (Focus)
+0x05 - must be 00
+0x06 - joypad PAUSE
+0x07 - must be 00
+0x08 to 0x0F - dummy
+0x10 - joypad SKIP (CTRL key)
+0x11 - must be 00
+0x12 - dummy
+0x13 - dummy
+0x14 - must be 02
+0x15 - must be 00
+0x16 - must be 07
+0x17 - must be 00
+
+0x18, 0x19 - Joypad sen X
+0x1A, 0x1B - Joypad sen Y
+eg. C8 00 = 200, C8 01 = 456
+0x1C - Initial Life (1~5)
+0x1D - Initial Bomb (0~3) (ignored)
+0x1E - Color mode (32/16 bit)
+0x1F - BGM off/wav/mid
+0x20 - SE off/on
+0x21 - Default difficulty
+0x22 - Fullscreen on/off
+0x23 - Rendering rate
+0x24 - Effect low/med/high
+0x25 - SlowMode off/on
+0x26 - Focus while SHOT off/on
+0x27 to 0x33 - dummy
+0x34 - refer OLDFLAGS
+0x35 - refer OLDFLAGS2
+0x36 to 0x37 - dummy

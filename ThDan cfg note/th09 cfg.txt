@@ -1,0 +1,69 @@
+th09 config note
+
+File size must be 204 bytes.
+Totally 161 dummy bytes.
+
+* TH09 has MIDIs in trial ver only.
+** Charge type means 'action for SHIFT button'.
+	'Slow' (default)
+	SHIFT to FOCUS.
+	Holding SHOT to CHARGE without shooting.
+	'Charge'
+	SHIFT to CHARGE.
+	Holding SHOT to FOCUS while shooting.
+
+----- 1P
+0x00 - joypad SHOT
+0x01 - must be 00
+0x02 - joypad BOMB
+0x03 - must be 00
+0x04 - joypad SLOW (Focus)
+0x05 - must be 00
+0x06 - joypad PAUSE
+0x07 - must be 00
+0x08 to 0x0F - dummy
+0x10 - joypad SKIP (CTRL key)
+0x11 - must be 00
+0x12 to 0x35 - dummy
+----- 2P
+0x36 - joypad SHOT
+0x37 - must be 00
+0x38 - joypad BOMB
+0x39 - must be 00
+0x3A - joypad SLOW (Focus)
+0x3B - must be 00
+0x3C - joypad PAUSE
+0x3D - must be 00
+0x3E to 0x45 - dummy
+0x46 - joypad SKIP (CTRL key)
+0x47 - must be 00
+0x48 to 0x6B - dummy
+
+0x6C to 0xA3 - dummy
+
+0xA4 - must be 03
+0xA5 - must be 00
+0xA6 - must be 09
+0xA7 - must be 00
+0xA8, 0xA9 - Joypad sen X
+0xAA, 0xAB - Joypad sen Y
+eg. C8 00 = 200, C8 01 = 456
+0xAC - Initial Life (3~5)
+0xAD - Color mode (32/16 bit)
+0xAE - BGM off/wav/mid *
+0xAF - SE off/on
+0xB0 - Default difficulty
+0xB1 - Fullscreen on/off
+0xB2 - Rendering rate
+0xB3 - Effect low/med/high
+0xB4 - 1P Charge type slow/charge **
+0xB5 - 2P Charge type slow/charge **
+0xB6 - dummy
+0xB7 - 1P control type
+0xB8 - 2P control type
+0xB9 - dummy
+0xBA - BGM vol
+0xBB - SE vol
+0xBC to 0xC7 - dummy
+0xC8 - refer OLDFLAGS3
+0xC9 to 0xCB - dummy

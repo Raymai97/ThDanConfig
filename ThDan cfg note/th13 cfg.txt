@@ -1,0 +1,44 @@
+th13 config note
+
+File size must be 60 bytes.
+Totally 22 dummy bytes.
+
+0x00 - must be 01
+0x01 - must be 00
+0x02 - must be 0x13
+0x03 - must be 00
+0x04 - joypad SHOT
+0x05 - must be 00
+0x06 - joypad BOMB
+0x07 - must be 00
+0x08 - joypad SLOW (Focus)
+0x09 - must be 00
+0x0A - joypad PAUSE
+0x0B - must be 00
+0x0C to 0x15 - dummy
+0x16 - joypad of keyboard's button C (ignored in this game)
+0x17 - must be 00 (ignored in this game)
+0x18, 0x19 - Joypad sen X
+0x1A, 0x1B - Joypad sen Y
+eg. C8 00 = 200, C8 01 = 456
+
+0x1C - Color mode (32/16 bit)
+0x1D - BGM off/on
+0x1E - SE off/on
+0x1F - Resolution & Fullscreen
+0x20 - Rendering rate
+0x21 - Effect low/med/high (obsolete)
+0x22 - BGM vol (max 7F (127%)?)
+0x23 - SE vol
+0x24 - Reset to 0 every time RESET default in game (?)
+0x25 - Latency mode
+0x26 - dummy
+0x27 - dummy
+0x28, 0x29, 0X2A, 0X2B - Window pos X
+0X2C, 0X2D, 0X2E, 0X2F - Window pos Y
+eg. FD FF FF FF = -3
+
+0x30 to 0x37 - dummy
+0x38 - No DirectInput (+8)
+0x39 - Ask at startup (+1) & Focus while SHOT (+2)
+0x3A to 0x3B - dummy

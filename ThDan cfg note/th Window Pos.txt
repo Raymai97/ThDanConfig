@@ -1,0 +1,70 @@
+Every Touhou Danmaku games after TH10 save Window Position in 8 bytes.
+First 4 bytes for pos X, another 4 bytes for pos Y.
+
+While it seems to be 'int' (Int32), it's actually 'short' (Int16), as
+Windows use 'short' for window position.
+
+Range of 'short' is
+MIN : -32768
+MAX : 32767
+
+You might think 2 bytes can represent 65535.
+Yes, but only in 'ushort' (UInt16), where negative value doesn't exist.
+MIN : 0
+MAX : 65535
+
+Let b = new byte[4], pos = 255
+Do math and you will get 0xFF. The byte array will be
+b[3] b[2] b[1] b[0]
+FF   00   00   00
+
+Yes, it is 00 00 00 FF, but multiple bytes are saved in reverse order.
+Yeah, it is Little-Endian.
+
+If pos = 800
+Do math and you will get 0x0320.
+We get 03 20, we make it 00 00 03 20, we reverse it, we get:
+b[3] b[2] b[1] b[0]
+20   03   00   00
+
+Actually the bytes itself didn't reverse, (4th column is b[0] not b[3])
+the first byte is still the first byte.
+Just remember that in the 'raw bytes' of cfg file, 4th byte comes first.
+
+The thicky part is the negative value. What if pos = -800?
+
+HEX  00 00 03 20
+BIN  00000000 00000000 00000011 00100000
+BIN  11111111 11111111 11111100 11011111 <- reversed
+    +                                  1 <- 2nd complement
+BIN =11111111 11111111 11111100 11100000
+HEX  FF FF FC E0
+
+We get FF FF FC E0, we reverse it, we get:
+b[3] b[2] b[1] b[0]
+E0   FC   FF   FF
+
+In fact, b[0] and b[1] are useless, they're either FF or 00, because
+two bytes are enough for representing a 'short' value.
+
+DEC  32767
+BIN  01111111 11111111
+HEX  7F FF
+
+DEC  -32768
+BIN  10000000 00000000
+HEX  80 00
+
+Not sure why ZUN want to use 4 bytes instead of 2 bytes for a 'short'.
+I guess it is because of the Win32 API 'SetWindowPos'.
+
+SetWindowPos(
+    _In_ HWND hWnd,
+    _In_opt_ HWND hWndInsertAfter,
+    _In_ int X,
+    _In_ int Y,
+    _In_ int cx,
+    _In_ int cy,
+    _In_ UINT uFlags);
+
+The API says 'int' but it's capability is within 'short'. WTF Microsoft.
