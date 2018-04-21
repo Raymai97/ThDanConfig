@@ -1,0 +1,81 @@
+th14, th143 and th15 config note
+
+File size must be 92 bytes. (108 for th15, 100 for th16)
+Totally 54 dummy bytes. (70 for th15, 62 for th16)
+
+===== for th14
+0x00 - must be 02
+0x01 - must be 00
+0x02 -  must be 0x14
+0x03 - must be 00
+
+===== for th143
+0x00 - must be 01
+0x01 - must be 01
+0x02 -  must be 0x43
+0x03 - must be 01
+
+===== for th15
+0x00 - must be 02
+0x01 - must be 00
+0x02 -  must be 0x15
+0x03 - must be 00
+
+===== for th16
+0x00 - must be 02
+0x01 - must be 00
+0x02 -  must be 0x16
+0x03 - must be 00
+
+===============
+0x04 - joypad SHOT
+0x05 - must be 00
+0x06 - joypad BOMB
+0x07 - must be 00
+0x08 - joypad SLOW (Focus)
+0x09 - must be 00
+0x0A - joypad PAUSE
+0x0B - must be 00
+0x0C to 0x15 - dummy
+0x16 - joypad of C Key (ignored)
+0x17 - must be 00 (ignored)
+0x18, 0x19 - Joypad sen X
+0x1A, 0x1B - Joypad sen Y
+eg. C8 00 = 200, C8 01 = 456
+
+0x1C - Color mode (32/16 bit)
+0x1D - BGM off/on
+0x1E - SE off/on
+0x1F - Resolution & Fullscreen
+0x20 - Rendering rate
+0x21 - Effect low/med/high (obsolete)
+0x22 - BGM vol (max 7F (127%)?)
+0x23 - SE vol
+0x24 - 'Hint' of th10 (obsolete)
+0x25 - Latency mode
+0x26 - dummy
+0x27 - dummy
+
+===== for th14 to 143
+0x28, 0x29, 0X2A, 0X2B - Window pos X
+0X2C, 0X2D, 0X2E, 0X2F - Window pos Y
+eg. FD FF FF FF = -3
+
+0x30 to 0x37 - dummy
+0x38 - refer FLAGS
+0x39 - refer FLAGS2
+0x3A to 0x5C - dummy
+
+===== for th15 to 16
+0x28 - refer FLAGS
+0x29 - refer FLAGS2
+0x2A - dummy
+0x2B - dummy
+0x2C, 0x2D, 0X2E, 0X2F - Window pos X
+0X30, 0X31, 0X32, 0X33 - Window pos Y
+eg. FD FF FF FF = -3
+
+0x34 to 0x6C - dummy for th15
+0x34 to 0x64 - dummy for th16
+
+===============

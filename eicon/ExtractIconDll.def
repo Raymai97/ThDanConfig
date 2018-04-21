@@ -1,0 +1,3 @@
+LIBRARY ExtractIconDll
+EXPORTS
+	GetIconOfFile
