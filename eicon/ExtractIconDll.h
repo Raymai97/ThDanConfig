@@ -3,8 +3,9 @@
 
 EXTERN_C
 HRESULT __stdcall
-GetIconOfFile(
+ExtractIconDll_ExtractOne(
 	LPCTSTR pszPath,
-	UINT desiredSize,
-	HICON *phIcon
+	int icoIndex,
+	UINT icoSize,
+	HICON *phIco
 );

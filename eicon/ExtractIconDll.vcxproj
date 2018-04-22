@@ -166,6 +166,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ExtractIconDll_EXTEND.h" />
     <ClInclude Include="ExtractIconDll.h" />
   </ItemGroup>
   <ItemGroup>

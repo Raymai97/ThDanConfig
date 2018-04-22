@@ -1,92 +1,69 @@
 #include "ExtractIconDll.h"
 #include <ShlObj.h>
-#include <commoncontrols.h>
+#include <shellapi.h>
+#include "ExtractIconDll_EXTEND.h"
 
-#ifndef UNICODE
-#define A_W(apiName)	apiName "A"
-#else
-#define A_W(apiName)	apiName "W"
-#endif
+#define MY_CheckHrAndAssert(x) \
+	if (FAILED(hr)) goto eof; \
+	if (!(x)) { hr = E_UNEXPECTED; goto eof; }
 
-static HRESULT My_SHGetFileInfo(
-	LPCTSTR pszPath, DWORD dwFileAttr,
-	SHFILEINFO *pFI, UINT cbFI, UINT uFlags,
-	DWORD_PTR *pRet)
-{
-	typedef DWORD_PTR(WINAPI *fn_t)(LPCTSTR, DWORD, SHFILEINFO*, UINT, UINT);
-	fn_t fn = (fn_t)GetProcAddress(LoadLibraryA("shell32"),
-		A_W("SHGetFileInfo"));
-	if (fn) {
-		DWORD_PTR ret = fn(pszPath, dwFileAttr, pFI, cbFI, uFlags);
-		*pRet = ret;
-		return ret ? S_OK : E_FAIL;
-	}
-	return E_NOTIMPL;
-}
+#define MY_SafeFree(p, fn) \
+	if (p) { fn(p); (p) = NULL; }
 
-static HRESULT My_SHGetImageList(
-	int shil, IID const *pIID, void **ppIL)
-{
-	typedef HRESULT(WINAPI *fn_t)(int, IID const*, void**);
-	fn_t fn = (fn_t)GetProcAddress(LoadLibraryA("shell32"),
-		"SHGetImageList");
-	if (fn) {
-		return fn(shil, pIID, ppIL);
-	}
-	return E_NOTIMPL;
-}
+#define MY_SafeFreeCOM(p) \
+	if (p) { (p)->lpVtbl->Release(p); (p) = NULL; }
 
-static HRESULT MyShGetImageListIcon(
-	int iIco, int shil, HICON *phIcon)
+
+static HRESULT MyExtractOne(
+	LPCTSTR pszPath,
+	int icoIndex,
+	UINT icoSize,
+	HICON *phIco)
 {
 	HRESULT hr = 0;
-	IImageList *pIL = NULL;
-	HICON hIco = NULL;
-	hr = My_SHGetImageList(shil, &IID_IImageList, (void**)&pIL);
+	BOOL coinit = FALSE;
+	IShellLink *pSL = NULL;
+	LPITEMIDLIST pidl = NULL;
+	IShellFolder *pSF = NULL;
+	IExtractIconn *pEI = NULL;
+	HICON hIcoL = NULL, hIcoS = NULL;
+
+	hr = CoInitialize(NULL);
 	if (FAILED(hr)) goto eof;
-	if (!pIL) {
-		hr = E_UNEXPECTED; goto eof;
-	}
-	hr = pIL->lpVtbl->GetIcon(pIL, iIco, ILD_TRANSPARENT, &hIco);
+	coinit = TRUE;
+
+	hr = CoCreateInstance(&CLSID_ShellLink, NULL, CLSCTX_INPROC_SERVER,
+		&IID_IShellLink, (void**)&pSL);
+	MY_CheckHrAndAssert(pSL);
+
+	hr = pSL->lpVtbl->SetPath(pSL, pszPath);
 	if (FAILED(hr)) goto eof;
-	if (!hIco) {
-		hr = E_UNEXPECTED; goto eof;
+	hr = pSL->lpVtbl->GetIDList(pSL, &pidl);
+	if (FAILED(hr)) goto eof;
+
+	hr = CoCreateInstance(&CLSID_ShellDesktop, NULL, CLSCTX_INPROC_SERVER,
+		&IID_IShellFolder, (void**)&pSF);
+	MY_CheckHrAndAssert(pSF);
+
+	hr = pSF->lpVtbl->GetUIObjectOf(pSF, NULL, 1, (LPCITEMIDLIST*)&pidl,
+		&IID_IExtractIcon, NULL, (void**)&pEI);
+	MY_CheckHrAndAssert(pEI);
+
+	hr = pEI->lpVtbl->Extract(pEI, pszPath, icoIndex,
+		&hIcoL, &hIcoS, icoSize);
+	if (hr == S_FALSE) {
+		hr = HRESULT_FROM_WIN32(ERROR_NOT_FOUND); goto eof;
 	}
-	*phIcon = hIco;
+	*phIco = hIcoL;
 eof:
-	if (pIL) { pIL->lpVtbl->Release(pIL); }
+	MY_SafeFree(hIcoS, DeleteObject);
+	MY_SafeFreeCOM(pEI);
+	MY_SafeFreeCOM(pSF);
+	MY_SafeFree(pidl, CoTaskMemFree);
+	MY_SafeFreeCOM(pSL);
+	if (coinit) { CoUninitialize(); }
 	return hr;
 }
-
-static HRESULT MyShGetIconSysIndex(
-	LPCTSTR pszPath, int *pico)
-{
-	HRESULT hr = 0;
-	SHFILEINFO fi = { 0 };
-	DWORD_PTR gfi = 0;
-	hr = My_SHGetFileInfo(pszPath, 0, &fi, sizeof(fi),
-		SHGFI_SYSICONINDEX, &gfi);
-	if (SUCCEEDED(hr)) {
-		*pico = fi.iIcon;
-	}
-	return hr;
-}
-
-static HRESULT MyShGetFileIcon(
-	LPCTSTR pszPath, BOOL wantLarge, HICON *phIcon)
-{
-	HRESULT hr = 0;
-	SHFILEINFO fi = { 0 };
-	DWORD_PTR gfi = 0;
-	hr = My_SHGetFileInfo(pszPath, 0, &fi, sizeof(fi),
-		(wantLarge ? SHGFI_LARGEICON : SHGFI_SMALLICON) |
-		SHGFI_ICON, &gfi);
-	if (FAILED(hr)) goto eof;
-	*phIcon = fi.hIcon;
-eof:
-	return hr;
-}
-
 
 EXTERN_C
 BOOL APIENTRY
@@ -101,44 +78,22 @@ DllMain(
 
 EXTERN_C
 HRESULT __stdcall
-GetIconOfFile(
+ExtractIconDll_ExtractOne(
 	LPCTSTR pszPath,
-	UINT desiredSize,
-	HICON *phIcon)
+	int icoIndex,
+	UINT icoSize,
+	HICON *phIco)
 {
 	HRESULT hr = 0;
 	BOOL coinit = FALSE;
-	HICON hIcon = NULL;
-	int iIco = 0;
-
+	HICON hIco = NULL;
 	hr = CoInitialize(NULL);
 	if (FAILED(hr)) goto eof;
 	coinit = TRUE;
-
-	switch (desiredSize)
-	{
-	case 256:
-	case 48:
-		hr = MyShGetIconSysIndex(pszPath, &iIco);
-		if (FAILED(hr)) goto eof;
-		hr = MyShGetImageListIcon(iIco,
-			desiredSize == 256 ? SHIL_JUMBO : SHIL_EXTRALARGE,
-			&hIcon);
-		break;
-	case 32:
-	case 16:
-		hr = MyShGetFileIcon(pszPath,
-			desiredSize == 32,
-			&hIcon);
-		break;
-	default:
-		hr = E_NOTIMPL;
-	}
+	hr = MyExtractOne(pszPath, icoIndex, icoSize, &hIco);
 	if (FAILED(hr)) goto eof;
-	*phIcon = hIcon;
+	*phIco = hIco;
 eof:
 	if (coinit) { CoUninitialize(); }
 	return hr;
 }
-
-

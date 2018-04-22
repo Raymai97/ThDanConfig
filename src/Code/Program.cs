@@ -48,9 +48,9 @@ namespace MaiSoft
             // If eicon.dll is available, try get better icon.
             try
             {
-                _exeIcon = ExtractIconDll.GetIconOfFile(path,
+                _exeIcon = ExtractIconDll.ExtractOne(path, 0,
                     (uint)(win7_above ? 32 : 16));
-                _exeIcon48 = ExtractIconDll.GetIconOfFile(path, 48);
+                _exeIcon48 = ExtractIconDll.ExtractOne(path, 0, 48);
             }
             catch (Exception) { }
         }

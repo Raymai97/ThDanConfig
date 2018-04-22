@@ -18,6 +18,9 @@
     <ClInclude Include="ExtractIconDll.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ExtractIconDll_EXTEND.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ExtractIconDll.c">

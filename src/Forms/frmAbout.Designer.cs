@@ -42,9 +42,9 @@
             this.lblAbout.Location = new System.Drawing.Point(85, 13);
             this.lblAbout.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblAbout.Name = "lblAbout";
-            this.lblAbout.Size = new System.Drawing.Size(207, 30);
+            this.lblAbout.Size = new System.Drawing.Size(239, 30);
             this.lblAbout.TabIndex = 98;
-            this.lblAbout.Text = "Touhou Danmaku Config Editor v1.1\r\nDeveloped by raymai97";
+            this.lblAbout.Text = "Touhou Danmaku Config Editor v1.1 rev 2\r\nDeveloped by raymai97";
             // 
             // picIcon
             // 
