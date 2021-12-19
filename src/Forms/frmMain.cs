@@ -39,6 +39,7 @@ namespace MaiSoft
         private th143 th143 = new th143();
         private th15 th15 = new th15();
         private th16 th16 = new th16();
+        private th17 th17 = new th17();
 
         // Enum
         private enum thGame
@@ -57,7 +58,8 @@ namespace MaiSoft
             th14,
             th143,
             th15,
-            th16
+            th16,
+            th17
         }
 
 
@@ -190,6 +192,8 @@ namespace MaiSoft
                     return Properties.Resources.def_th15_cfg;
                 case thGame.th16:
                     return Properties.Resources.def_th16_cfg;
+                case thGame.th17:
+                    return Properties.Resources.def_th17_cfg;
             }
             throw new NotImplementedException();
         }
@@ -210,7 +214,11 @@ namespace MaiSoft
                     using (var reader = new BinaryReader(s))
                     {
                         byte[] data = reader.ReadBytes((int)s.Length);
-                        if (th16.validate(data))
+                        if (th17.validate(data))
+                        {
+                            selectedGame = thGame.th17; CfgToUI(th17, data);
+                        }
+                        else if (th16.validate(data))
                         {
                             selectedGame = thGame.th16; CfgToUI(th16, data);
                         }
@@ -327,6 +335,8 @@ namespace MaiSoft
                             th = th15; break;
                         case thGame.th16:
                             th = th16; break;
+                        case thGame.th17:
+                            th = th17; break;
                         default: throw new NotImplementedException();
                     }
                     if (!th.validate(data)) data = defCfgOf(selectedGame);
@@ -850,6 +860,10 @@ namespace MaiSoft
                     CfgToUI(th143, data); break;
                 case thGame.th15:
                     CfgToUI(th15, data); break;
+                case thGame.th16:
+                    CfgToUI(th16, data); break;
+                case thGame.th17:
+                    CfgToUI(th17, data); break;
                 default: throw new NotImplementedException();
             }
         }

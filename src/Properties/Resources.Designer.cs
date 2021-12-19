@@ -164,5 +164,12 @@ namespace MaiSoft.Properties {
                 return ((byte[])(obj));
             }
         }
+        
+        internal static byte[] def_th17_cfg {
+            get {
+                object obj = ResourceManager.GetObject("def_th17_cfg", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
     }
 }

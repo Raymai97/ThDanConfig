@@ -738,7 +738,8 @@
             "TH14  東方輝針城 DDC",
             "TH143 弾幕天邪鬼 IS",
             "TH15  東方紺珠伝 LoLK",
-            "TH16  東方天空璋 HSiFS"});
+            "TH16  東方天空璋 HSiFS",
+            "TH17  東方鬼形獣 WBaWC"});
             this.cmbGame.Location = new System.Drawing.Point(69, 37);
             this.cmbGame.Name = "cmbGame";
             this.cmbGame.Size = new System.Drawing.Size(219, 25);
